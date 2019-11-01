@@ -49,8 +49,6 @@ class Model
 
 
     # query methods
-
-
     public function query($sql)
     {
         $result = $this->db->query($sql)

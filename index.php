@@ -2,14 +2,12 @@
 session_start();
 require 'flight/Flight.php';
 
-//Flight::register('db', 'mysqli', array('localhost', 'root', 'root', 'my_dbname'));
-
 // How to set global variables
 // Flight::set('root', 'http://myapp.com');
 // Flight::get('root');
 
 Flight::path(__DIR__ . '/app');
-Flight::register('student', 'Student');
+Flight::register('user', 'User');
 
 Flight::map('auth', function () {
     // user is not authenticated
@@ -24,30 +22,53 @@ Flight::map('auth', function () {
 
 
 // routes
-
-Flight::route('GET /', function () {
-    echo 'hello get world!';
+Flight::route('/', function () {
+    echo 'hello world!';
 });
 
-Flight::route('POST /', function () {
-    Flight::json(array('id' => 123, 'name' => 'david'));
-});
 
-Flight::route('GET /@user(/(@id))', function ($user, $id) {
-    echo "hello, $user with an id if of $id!";
-});
-
-Flight::route('POST /save', function () {
-    $data = Flight::request()->data->getData();
-    print_r($data);
-});
-
-Flight::route('POST /student(/(@id))', function ($id) {
-    $user = Flight::auth();
-    $student = Flight::student();
-    $data = $student->getStudent($id);
+// with id of user gives email and password
+Flight::route('GET /user/@id', function ($id) {
+    Flight::auth();
+    $data = Flight::user()->getUser($id);
     Flight::json($data);
 });
+
+//creates user
+Flight::route('POST /user/save', function () {
+    $data = Flight::request()->data->getData();
+    Flight::user()->saveUser($data['email'], $data['password']);
+    Flight::json($data['email']);
+});
+
+//updates user email
+Flight::route('POST /user/@id/email', function ($id) {
+    //Flight::auth();
+    $data = Flight::request()->data->getData();
+    $user = Flight::user()->updateUserEmail((int) $id, $data['email']);
+    Flight::json($user);
+});
+
+Flight::route('DELETE /user/@id', function ($id) {
+    //$user = Flight::auth();
+    Flight::user()->deleteUser((int) $id);
+});
+
+//user login
+Flight::route('POST /user/login', function () {
+    $data = Flight::request()->data->getData();
+    $count = Flight::user()->loginUser($data['email'], $data['password'], False);
+    if ($count == 1) {
+        $user = Flight::user()->loginUser($data['email'], $data['password'], True);
+        $_SESSION["id"] = $user['id'];
+        Flight::json($_SESSION["id"]);
+    } else {
+        session_destroy();
+        Flight::json('Username or password do not match.');
+    }
+});
+
+
 
 //not working
 Flight::route('PUT /save', function () {

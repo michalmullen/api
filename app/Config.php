@@ -4,7 +4,7 @@
 class Config
 {
     public $host = 'localhost';
-    public $db = '';
+    public $db = 'flight';
     public $user = 'root';
     public $pass = 'root';
 }
