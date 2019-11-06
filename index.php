@@ -55,7 +55,7 @@ Flight::route('DELETE /user/@id', function ($id) {
 });
 
 //user login
-Flight::route('POST /user/login', function () {
+Flight::route('POST /login', function () {
     $data = Flight::request()->data->getData();
     $count = Flight::user()->loginUser($data['email'], $data['password'], False);
     if ($count == 1) {
@@ -66,6 +66,11 @@ Flight::route('POST /user/login', function () {
         session_destroy();
         Flight::json('Username or password do not match.');
     }
+});
+
+//user logout
+Fight::route('GET /logout', function () {
+    session_destroy();
 });
 
 
