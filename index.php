@@ -13,8 +13,7 @@ Flight::map('auth', function () {
     // user is not authenticated
     if (!array_key_exists('id', $_SESSION)) {
         session_destroy();
-        Flight::redirect('/');
-        exit();
+        Flight::json(['User is not logged in.'], $code = 401);
     } else {
         return $_SESSION['id'];
     }
@@ -50,7 +49,7 @@ Flight::route('POST /user/@id/email', function ($id) {
 });
 
 Flight::route('DELETE /user/@id', function ($id) {
-    //$user = Flight::auth();
+    Flight::auth();
     Flight::user()->deleteUser((int) $id);
 });
 
@@ -64,21 +63,16 @@ Flight::route('POST /login', function () {
         Flight::json($_SESSION["id"]);
     } else {
         session_destroy();
-        Flight::json('Username or password do not match.');
+        Flight::json(['Username or password do not match.'], $code = 401);
     }
 });
 
 //user logout
-Fight::route('GET /logout', function () {
+Flight::route('GET /logout', function () {
+    Flight::auth();
     session_destroy();
+    Flight::json(['logout route']);
 });
 
-
-
-//not working
-Flight::route('PUT /save', function () {
-    $data = Flight::request()->data->getData();
-    print_r($data);
-});
 
 Flight::start();
