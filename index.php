@@ -14,6 +14,7 @@ Flight::map('auth', function () {
     if (!array_key_exists('id', $_SESSION)) {
         session_destroy();
         Flight::json(['User is not logged in.'], $code = 401);
+        exit();
     } else {
         return $_SESSION['id'];
     }
@@ -60,7 +61,7 @@ Flight::route('POST /login', function () {
     if ($count == 1) {
         $user = Flight::user()->loginUser($data['email'], $data['password'], True);
         $_SESSION["id"] = $user['id'];
-        Flight::json($_SESSION["id"]);
+        Flight::json([$_SESSION["id"]]);
     } else {
         session_destroy();
         Flight::json(['Username or password do not match.'], $code = 401);
