@@ -8,6 +8,7 @@ require 'flight/Flight.php';
 
 Flight::path(__DIR__ . '/app');
 Flight::register('user', 'User');
+Flight::register('item', 'Item');
 
 Flight::map('auth', function () {
     // user is not authenticated
@@ -75,5 +76,11 @@ Flight::route('GET /logout', function () {
     Flight::json(['logout route']);
 });
 
+//creates user
+Flight::route('POST /item/save', function () {
+    $data = Flight::request()->data->getData();
+    Flight::item()->saveItem($data['title'], $data['image'], $data['description']);
+    Flight::json($data['title']);
+});
 
 Flight::start();

@@ -16,9 +16,9 @@ class Item extends Model
         return $this->row($sql);
     }
 
-    public function saveItem($name, $image, $description)
+    public function saveItem($title, $image, $description)
     {
-        $sql = "INSERT INTO `Item` (`id`, `name`, `image`, `description`) VALUES (NULL, '$name', '$image', '$description');";
+        $sql = "INSERT INTO `Item` (`id`, `title`, `image`, `description`) VALUES (NULL, '$title', '$image', '$description');";
         $this->execute($sql);
     }
 
