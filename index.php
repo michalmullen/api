@@ -10,6 +10,8 @@ Flight::path(__DIR__ . '/app');
 Flight::register('user', 'User');
 Flight::register('item', 'Item');
 
+//authentication
+//use -> Flight::auth();
 Flight::map('auth', function () {
     // user is not authenticated
     if (!array_key_exists('id', $_SESSION)) {
@@ -27,6 +29,30 @@ Flight::route('/', function () {
     echo 'hello world!';
 });
 
+
+//login routs!!!
+
+Flight::route('POST /login', function () {
+    $data = Flight::request()->data->getData();
+    $count = Flight::user()->loginUser($data['email'], $data['password'], False);
+    if ($count == 1) {
+        $user = Flight::user()->loginUser($data['email'], $data['password'], True);
+        $_SESSION["id"] = $user['id'];
+        Flight::json([$_SESSION["id"]]);
+    } else {
+        session_destroy();
+        Flight::json(['Username or password do not match.'], $code = 401);
+    }
+});
+
+Flight::route('GET /logout', function () {
+    Flight::auth();
+    session_destroy();
+    Flight::json(['logout route']);
+});
+
+
+//user routs!!!
 
 // with id of user gives email and password
 Flight::route('GET /user/@id', function ($id) {
@@ -55,28 +81,10 @@ Flight::route('DELETE /user/@id', function ($id) {
     Flight::user()->deleteUser((int) $id);
 });
 
-//user login
-Flight::route('POST /login', function () {
-    $data = Flight::request()->data->getData();
-    $count = Flight::user()->loginUser($data['email'], $data['password'], False);
-    if ($count == 1) {
-        $user = Flight::user()->loginUser($data['email'], $data['password'], True);
-        $_SESSION["id"] = $user['id'];
-        Flight::json([$_SESSION["id"]]);
-    } else {
-        session_destroy();
-        Flight::json(['Username or password do not match.'], $code = 401);
-    }
-});
 
-//user logout
-Flight::route('GET /logout', function () {
-    Flight::auth();
-    session_destroy();
-    Flight::json(['logout route']);
-});
+//item routs!!!
 
-//creates user
+//creates item
 Flight::route('POST /item/save', function () {
     $data = Flight::request()->data->getData();
     Flight::item()->saveItem($data['title'], $data['image'], $data['description']);
