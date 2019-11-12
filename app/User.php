@@ -39,6 +39,12 @@ class User extends Model
         return $this->execute($sql);
     }
 
+    public function updateUserPassword($id, $pass)
+    {
+        $sql = "UPDATE `user` SET `password` = '$pass' WHERE `user`.`id` = $id";
+        return $this->execute($sql);
+    }
+
     public function saveUser($email, $pass)
     {
         $sql = "INSERT INTO `user` (`id`, `email`, `password`) VALUES (NULL, '$email', '$pass');";

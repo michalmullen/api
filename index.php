@@ -9,20 +9,31 @@ require 'flight/Flight.php';
 Flight::path(__DIR__ . '/app');
 Flight::register('user', 'User');
 Flight::register('item', 'Item');
+Flight::register('basket', 'Basket');
 
-//authentication
+//authentication!!!
+
 //use -> Flight::auth();
+//checks that the user is logged in
 Flight::map('auth', function () {
     // user is not authenticated
     if (!array_key_exists('id', $_SESSION)) {
         session_destroy();
-        Flight::json(['User is not logged in.'], $code = 401);
+        Flight::json(['You are not logged in.'], $code = 401);
         exit();
     } else {
         return $_SESSION['id'];
     }
 });
 
+//restricts users from changing other users info
+Flight::map('userAuth', function ($id) {
+    Flight::auth();
+    if ($_SESSION['id'] != $id) {
+        Flight::json(['You do not have permission.'], $code = 401);
+        exit();
+    }
+});
 
 // routes
 Flight::route('/', function () {
@@ -64,13 +75,13 @@ Flight::route('GET /user/@id', function ($id) {
 //creates user
 Flight::route('POST /user/save', function () {
     $data = Flight::request()->data->getData();
-    Flight::user()->saveUser($data['email'], $data['password']);
+    Flight::user()->saveUser($data['email'], $data['password'], $data['name']);
     Flight::json($data['email']);
 });
 
 //updates user email
 Flight::route('POST /user/@id/email', function ($id) {
-    //Flight::auth();
+    Flight::userAuth($id);
     $data = Flight::request()->data->getData();
     $user = Flight::user()->updateUserEmail((int) $id, $data['email']);
     Flight::json($user);
@@ -89,6 +100,11 @@ Flight::route('POST /item/save', function () {
     $data = Flight::request()->data->getData();
     Flight::item()->saveItem($data['title'], $data['image'], $data['description']);
     Flight::json($data['title']);
+});
+
+Flight::route('DELETE /item/@id', function ($id) {
+    //Flight::auth();
+    Flight::item()->deleteItem((int) $id);
 });
 
 Flight::start();
