@@ -9,7 +9,6 @@ require 'flight/Flight.php';
 Flight::path(__DIR__ . '/app');
 Flight::register('user', 'User');
 Flight::register('item', 'Item');
-Flight::register('basket', 'Basket');
 
 //authentication!!!
 
@@ -73,7 +72,7 @@ Flight::route('GET /user/@id', function ($id) {
 });
 
 //creates user
-Flight::route('POST /user/save', function () {
+Flight::route('POST /user/create', function () {
     $data = Flight::request()->data->getData();
     Flight::user()->saveUser($data['email'], $data['password'], $data['name']);
     Flight::json($data['email']);
@@ -82,7 +81,7 @@ Flight::route('POST /user/save', function () {
 //updates user email
 Flight::route('POST /user/@id/email', function ($id) {
     Flight::userAuth($id);
-    $data = Flight::request()->data->getData();
+    $data = Flight::request()->data->getData(); //change this line
     $user = Flight::user()->updateUserEmail((int) $id, $data['email']);
     Flight::json($user);
 });
@@ -96,7 +95,7 @@ Flight::route('DELETE /user/@id', function ($id) {
 //item routs!!!
 
 //creates item
-Flight::route('POST /item/save', function () {
+Flight::route('POST /item/create', function () {
     $data = Flight::request()->data->getData();
     Flight::item()->saveItem($data['title'], $data['image'], $data['description']);
     Flight::json($data['title']);
