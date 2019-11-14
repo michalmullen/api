@@ -33,9 +33,9 @@ class User extends Model
         return $this->row($sql);
     }
 
-    public function updateUserEmail($id, $email)
+    public function updateUser($id, $email, $pass, $name)
     {
-        $sql = "UPDATE `user` SET `email` = '$email' WHERE `user`.`id` = $id";
+        $sql = "UPDATE `user` SET `email` = '$email', `password` = '$pass', `name` = '$name' WHERE `user`.`id` = $id;";
         return $this->execute($sql);
     }
 

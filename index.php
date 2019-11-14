@@ -12,7 +12,7 @@ Flight::register('item', 'Item');
 
 //authentication!!!
 
-//use -> Flight::auth();
+
 //checks that the user is logged in
 Flight::map('auth', function () {
     // user is not authenticated
@@ -34,7 +34,7 @@ Flight::map('userAuth', function ($id) {
     }
 });
 
-// routes
+
 Flight::route('/', function () {
     echo 'hello world!';
 });
@@ -64,13 +64,6 @@ Flight::route('GET /logout', function () {
 
 //user routs!!!
 
-// with id of user gives email and password
-Flight::route('GET /user/@id', function ($id) {
-    Flight::auth();
-    $data = Flight::user()->getUser($id);
-    Flight::json($data);
-});
-
 //creates user
 Flight::route('POST /user/', function () {
     $data = Flight::request()->data->getData();
@@ -78,17 +71,24 @@ Flight::route('POST /user/', function () {
     Flight::json($data['email']);
 });
 
+// with id of user gives email and password
+Flight::route('GET /user/@id', function ($id) {
+    Flight::auth();
+    $data = Flight::user()->getUser($id);
+    Flight::json($data);
+});
 
+//for PUT request must use x-www-form-urlencoded to send data
 Flight::route('PUT /user/@id', function ($id) {
-    Flight::userAuth($id);
+    //Flight::userAuth($id);
     $data = Flight::request()->getBody();
     parse_str($data, $result);
-    $user = Flight::user()->updateUserEmail((int) $id, $result['email']);
+    $user = Flight::user()->updateUser((int) $id, $result['email'], $result['password'], $result['name']);
     Flight::json($user);
 });
 
 Flight::route('DELETE /user/@id', function ($id) {
-    Flight::auth();
+    Flight::userAuth($id);
     Flight::user()->deleteUser((int) $id);
 });
 
@@ -96,7 +96,7 @@ Flight::route('DELETE /user/@id', function ($id) {
 //item routs!!!
 
 //creates item
-Flight::route('POST /item/create', function () {
+Flight::route('POST /item', function () {
     $data = Flight::request()->data->getData();
     Flight::item()->saveItem($data['title'], $data['image'], $data['description']);
     Flight::json($data['title']);
