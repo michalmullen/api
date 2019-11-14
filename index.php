@@ -72,17 +72,18 @@ Flight::route('GET /user/@id', function ($id) {
 });
 
 //creates user
-Flight::route('POST /user/create', function () {
+Flight::route('POST /user/', function () {
     $data = Flight::request()->data->getData();
     Flight::user()->saveUser($data['email'], $data['password'], $data['name']);
     Flight::json($data['email']);
 });
 
-//updates user email
-Flight::route('POST /user/@id/email', function ($id) {
+
+Flight::route('PUT /user/@id', function ($id) {
     Flight::userAuth($id);
-    $data = Flight::request()->data->getData(); //change this line
-    $user = Flight::user()->updateUserEmail((int) $id, $data['email']);
+    $data = Flight::request()->getBody();
+    parse_str($data, $result);
+    $user = Flight::user()->updateUserEmail((int) $id, $result['email']);
     Flight::json($user);
 });
 
