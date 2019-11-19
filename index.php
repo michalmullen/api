@@ -65,7 +65,7 @@ Flight::route('GET /logout', function () {
 //user routs!!!
 
 //creates user
-Flight::route('POST /user/', function () {
+Flight::route('POST /user', function () {
     $data = Flight::request()->data->getData();
     Flight::user()->saveUser($data['email'], $data['password'], $data['name']);
     Flight::json($data['email']);
