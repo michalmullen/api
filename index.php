@@ -107,11 +107,5 @@ Flight::route('DELETE /item/@id', function ($id) {
     Flight::item()->deleteItem((int) $id);
 });
 
-Flight::before('json', function () {
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET,PUT,POST,DELETE');
-    header('Access-Control-Allow-Headers: Content-Type');
-});
-
 
 Flight::start();
