@@ -45,9 +45,9 @@ class User extends Model
         return $this->execute($sql);
     }
 
-    public function saveUser($email, $pass)
+    public function saveUser($email, $pass, $name)
     {
-        $sql = "INSERT INTO `user` (`id`, `email`, `password`) VALUES (NULL, '$email', '$pass');";
+        $sql = "INSERT INTO `user` (`id`, `email`, `password`, `name`) VALUES (NULL, '$email', '$pass', '$name');";
         $this->execute($sql);
     }
 
