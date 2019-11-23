@@ -35,8 +35,8 @@ Flight::map('userAuth', function ($id) {
 
 //checks that email is unique
 Flight::map('authEmail', function ($email) {
-    if (Flight::user()->uniqueEmail($email) >= 1) {
-        Flight::json(['Email has already been taken.'], $code = 401);
+    if (Flight::user()->uniqueEmail($email) == 1) {
+        Flight::json(['That email has already been taken.'], $code = 401);
         exit();
     }
 });
@@ -75,7 +75,7 @@ Flight::route('GET /logout', function () {
 //creates user
 Flight::route('POST /user', function () {
     $data = Flight::request()->data->getData();
-    Flight::uniqueEmail($data['email']);
+    Flight::authEmail($data['email']);
     Flight::user()->saveUser($data['email'], $data['password'], $data['name']);
     Flight::json($data['email']);
 });
