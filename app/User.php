@@ -27,6 +27,12 @@ class User extends Model
         }
     }
 
+    public function uniqueEmail($email)
+    {
+        $sql = "SELECT * FROM user WHERE email = '$email'";
+        return $this->count($sql);
+    }
+
     public function getUserId($email, $password)
     {
         $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";

@@ -12,7 +12,6 @@ Flight::register('item', 'Item');
 
 //authentication!!!
 
-
 //checks that the user is logged in
 Flight::map('auth', function () {
     // user is not authenticated
@@ -33,6 +32,15 @@ Flight::map('userAuth', function ($id) {
         exit();
     }
 });
+
+//checks that email is unique
+Flight::map('authEmail', function ($email) {
+    if (Flight::user()->uniqueEmail($email) >= 1) {
+        Flight::json(['Email has already been taken.'], $code = 401);
+        exit();
+    }
+});
+
 
 
 Flight::route('/', function () {
@@ -67,6 +75,7 @@ Flight::route('GET /logout', function () {
 //creates user
 Flight::route('POST /user', function () {
     $data = Flight::request()->data->getData();
+    Flight::uniqueEmail($data['email']);
     Flight::user()->saveUser($data['email'], $data['password'], $data['name']);
     Flight::json($data['email']);
 });
@@ -80,7 +89,7 @@ Flight::route('GET /user/@id', function ($id) {
 
 //for PUT request must use x-www-form-urlencoded to send data
 Flight::route('PUT /user/@id', function ($id) {
-    //Flight::userAuth($id);
+    Flight::userAuth($id);
     $data = Flight::request()->getBody();
     parse_str($data, $result);
     $user = Flight::user()->updateUser((int) $id, $result['email'], $result['password'], $result['name']);
