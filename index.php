@@ -48,7 +48,7 @@ Flight::route('POST /login', function () {
     if ($count == 1) {
         $user = Flight::user()->loginUser($data['email'], $data['password'], True);
         $_SESSION["id"] = $user['id'];
-        Flight::json([(int) $_SESSION["id"]]);
+        Flight::json($user);
     } else {
         session_destroy();
         Flight::json(['Username or password do not match.'], $code = 401);
