@@ -80,7 +80,6 @@ Flight::route('POST /user', function () {
     Flight::json($data['email']);
 });
 
-// with id of user gives email and password
 Flight::route('GET /user/@id', function ($id) {
     Flight::auth();
     $data = Flight::user()->getUser($id);
@@ -89,10 +88,10 @@ Flight::route('GET /user/@id', function ($id) {
 
 //for PUT request must use x-www-form-urlencoded to send data
 Flight::route('PUT /user/@id', function ($id) {
-    Flight::userAuth($id);
+    //Flight::userAuth($id);
     $data = Flight::request()->getBody();
     parse_str($data, $result);
-    $user = Flight::user()->updateUser((int) $id, $result['email'], $result['password'], $result['name']);
+    $user = Flight::user()->updateUser((int) $id, $result['email'], $result['password'], $result['name'], $result['coins']);
     Flight::json($user);
 });
 
@@ -109,6 +108,13 @@ Flight::route('POST /item', function () {
     $data = Flight::request()->data->getData();
     Flight::item()->saveItem($data['title'], $data['image'], $data['description']);
     Flight::json($data['title']);
+});
+
+//get items
+Flight::route('GET /item', function () {
+    //Flight::auth();
+    $items = Flight::item()->getItems();
+    Flight::json($items);
 });
 
 Flight::route('DELETE /item/@id', function ($id) {

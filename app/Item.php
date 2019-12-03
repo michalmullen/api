@@ -16,6 +16,12 @@ class Item extends Model
         return $this->row($sql);
     }
 
+    public function getItems()
+    {
+        $sql = "SELECT * FROM item";
+        return $this->query($sql);
+    }
+
     public function saveItem($title, $image, $description)
     {
         $sql = "INSERT INTO `Item` (`id`, `title`, `image`, `description`) VALUES (NULL, '$title', '$image', '$description');";
