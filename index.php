@@ -10,7 +10,7 @@ Flight::path(__DIR__ . '/app');
 Flight::register('user', 'User');
 Flight::register('item', 'Item');
 
-//authentication!!!
+// authentication!!!
 
 //checks that the user is logged in
 Flight::map('auth', function () {
@@ -48,7 +48,7 @@ Flight::route('/', function () {
 });
 
 
-//login routs!!!
+// login routs!!!
 
 Flight::route('POST /login', function () {
     $data = Flight::request()->data->getData();
@@ -70,7 +70,7 @@ Flight::route('GET /logout', function () {
 });
 
 
-//user routs!!!
+// user routs!!!
 
 //creates user
 Flight::route('POST /user', function () {
@@ -88,7 +88,7 @@ Flight::route('GET /user/@id', function ($id) {
 
 //for PUT request must use x-www-form-urlencoded to send data
 Flight::route('PUT /user/@id', function ($id) {
-    //Flight::userAuth($id);
+    Flight::userAuth($id);
     $data = Flight::request()->getBody();
     parse_str($data, $result);
     $user = Flight::user()->updateUser((int) $id, $result['email'], $result['password'], $result['name'], $result['coins']);
@@ -101,7 +101,7 @@ Flight::route('DELETE /user/@id', function ($id) {
 });
 
 
-//item routs!!!
+// item routs!!!
 
 //creates item
 Flight::route('POST /item', function () {
@@ -112,14 +112,31 @@ Flight::route('POST /item', function () {
 
 //get items
 Flight::route('GET /item', function () {
-    //Flight::auth();
+    Flight::auth();
     $items = Flight::item()->getItems();
     Flight::json($items);
 });
 
 Flight::route('DELETE /item/@id', function ($id) {
-    //Flight::auth();
+    Flight::auth();
     Flight::item()->deleteItem((int) $id);
+});
+
+
+// menu routes!!!
+
+Flight::route('PUT /menu', function () {
+    //Flight::userAuth($id);
+    $data = Flight::request()->getBody();
+    parse_str($data, $result);
+    $user = Flight::item()->updateMenu($result['menu']);
+    Flight::json($user);
+});
+
+Flight::route('GET /menu', function () {
+    //Flight::auth();
+    $items = Flight::item()->getMenu();
+    Flight::json($items);
 });
 
 

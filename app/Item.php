@@ -33,4 +33,16 @@ class Item extends Model
         $sql = "DELETE FROM `Item` WHERE `Item`.`id` = $id";
         return $this->row($sql);
     }
+
+    public function updateMenu($menu)
+    {
+        $sql = "UPDATE `menu` SET `menu` = '$menu' WHERE `menu`.`id` = '1';";
+        return $this->execute($sql);
+    }
+
+    public function getMenu()
+    {
+        $sql = "SELECT * FROM menu WHERE `menu`.`id` = 1;";
+        return $this->row($sql);
+    }
 }
