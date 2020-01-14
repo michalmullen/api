@@ -117,6 +117,12 @@ Flight::route('GET /item', function () {
     Flight::json($items);
 });
 
+Flight::route('GET /item/@id', function ($id) {
+    //Flight::auth();
+    $items = Flight::item()->getItem($id);
+    Flight::json($items);
+});
+
 Flight::route('DELETE /item/@id', function ($id) {
     Flight::auth();
     Flight::item()->deleteItem((int) $id);
