@@ -4,4 +4,4 @@ The backend is made with the PHP language using the Flight Framework. It is host
 
 ### Deployment
 
-Clone this repo in the htdocs (server). Run the flight.sql on the MySql Server.
+Clone this repo in the htdocs (server). Run the flight.sql on the MySql Server. Change root and password to the current Sql Server.
