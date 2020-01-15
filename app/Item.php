@@ -45,4 +45,15 @@ class Item extends Model
         $sql = "SELECT * FROM menu WHERE `menu`.`id` = 1;";
         return $this->row($sql);
     }
+
+    public function saveOrder($user_id, $user_name, $order) {
+        $sql = "INSERT INTO `order` (`id`, `user_id`, `user_name`, `order`, `datetime`) VALUES (NULL, '$user_id', '$user_name', '$order', CURRENT_TIMESTAMP)";
+        $this->execute($sql);
+    }
+
+    public function getTodaysOrders() 
+    {
+        $sql = "SELECT * FROM `order` WHERE DATE(`datetime`) = CURDATE()";
+        return $this->query($sql);
+    }
 }

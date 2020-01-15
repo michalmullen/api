@@ -146,4 +146,19 @@ Flight::route('GET /menu', function () {
 });
 
 
+//order routs!!!
+
+Flight::route('POST /order', function () {
+    $data = Flight::request()->data->getData();
+    Flight::item()->saveOrder($data['user_id'], $data['user_name'], $data['order']);
+    Flight::json('true');
+});
+
+//gives orders from that day
+Flight::route('GET /order/day', function () {
+    $items = Flight::item()->getTodaysOrders();
+    Flight::json($items);
+});
+
+
 Flight::start();
