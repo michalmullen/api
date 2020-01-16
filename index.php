@@ -105,6 +105,7 @@ Flight::route('DELETE /user/@id', function ($id) {
 
 //creates item
 Flight::route('POST /item', function () {
+    Flight::auth();
     $data = Flight::request()->data->getData();
     Flight::item()->saveItem($data['title'], $data['image'], $data['description']);
     Flight::json($data['title']);
@@ -118,7 +119,7 @@ Flight::route('GET /item', function () {
 });
 
 Flight::route('GET /item/@id', function ($id) {
-    //Flight::auth();
+    Flight::auth();
     $items = Flight::item()->getItem($id);
     Flight::json($items);
 });
@@ -132,7 +133,7 @@ Flight::route('DELETE /item/@id', function ($id) {
 // menu routes!!!
 
 Flight::route('PUT /menu', function () {
-    //Flight::userAuth($id);
+    // Flight::userAuth($id);
     $data = Flight::request()->getBody();
     parse_str($data, $result);
     $user = Flight::item()->updateMenu($result['menu']);
@@ -140,7 +141,7 @@ Flight::route('PUT /menu', function () {
 });
 
 Flight::route('GET /menu', function () {
-    //Flight::auth();
+    Flight::auth();
     $items = Flight::item()->getMenu();
     Flight::json($items);
 });
@@ -149,6 +150,7 @@ Flight::route('GET /menu', function () {
 //order routs!!!
 
 Flight::route('POST /order', function () {
+    Flight::auth();
     $data = Flight::request()->data->getData();
     Flight::item()->saveOrder($data['user_id'], $data['user_name'], $data['order']);
     Flight::json('true');
@@ -156,6 +158,7 @@ Flight::route('POST /order', function () {
 
 //gives orders from that day
 Flight::route('GET /order/day', function () {
+    Flight::auth();
     $items = Flight::item()->getTodaysOrders();
     Flight::json($items);
 });

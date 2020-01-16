@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 15, 2020 at 02:58 PM
+-- Generation Time: Jan 16, 2020 at 11:22 AM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `flight`
 --
-CREATE DATABASE IF NOT EXISTS `flight` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `flight`;
 
 -- --------------------------------------------------------
 
@@ -44,9 +42,10 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`id`, `title`, `image`, `description`, `price`, `order_amount`) VALUES
-(4, 'Hamburger', 'https://cdn.vuetifyjs.com/images/cards/road.jpg', 'bun, fun, run', 180, 0),
-(5, 'Cheeseburger', 'https://cdn.vuetifyjs.com/images/cards/road.jpg', 'easy cheesy', 150, 0),
-(6, 'Bacon Cheesburger', 'https://cdn.vuetifyjs.com/images/cards/road.jpg', 'gud food ya know', 200, 0);
+(7, 'Cranberry Bacon Chicken Salad', 'https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/web-salad-cranberry-bacon-bleu-18.jpg', 'Hand-seasoned, grilled chicken breast and pieces of bacon plus a generous helping of dried cranberries and savory bleu cheese crumbles on a bed of mixed greens with cucumber slices, and grape tomatoes.', 200, 0),
+(8, 'Garden Fresco Salad', 'https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/salad-garden-fresco.jpg', 'Our Garden Fresco Salad features a bed of mixed greens plus hand-sliced cucumbers, grape tomatoes, shredded Wisconsin cheddar and zesty croutons.', 150, 0),
+(9, 'Side Salad', 'https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/side-salad.jpg', 'Mixed greens with cucumber, tomato, croutons and a sprinkling of cheddar cheese.', 80, 0),
+(10, 'Chicken Cashew Salad', 'https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/web-salad-chicken-cashew-18.jpg', 'Hand-seasoned, grilled chicken breast plus a generous helping of whole roasted cashews atop a bed of mixed greens. Plus crunchy cucumbers, grape tomatoes and shredded real Wisconsin cheddar.', 120, 0);
 
 -- --------------------------------------------------------
 
@@ -64,7 +63,7 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `menu`) VALUES
-(1, '[{\"day\":\"Monday\",\"id\":0,\"items\":[{\"id\":\"5\",\"title\":\"Cheeseburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"easy cheesy\",\"price\":\"150\",\"order_amount\":\"0\"},{\"id\":\"4\",\"title\":\"Hamburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"bun, fun, run\",\"price\":\"180\",\"order_amount\":\"0\"}]},{\"day\":\"Tuesday\",\"id\":1,\"items\":[{\"id\":\"4\",\"title\":\"Hamburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"bun, fun, run\",\"price\":\"180\",\"order_amount\":\"0\"},{\"id\":\"5\",\"title\":\"Cheeseburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"easy cheesy\",\"price\":\"150\",\"order_amount\":\"0\"}]},{\"day\":\"Wednesday\",\"id\":2,\"items\":[{\"id\":\"6\",\"title\":\"Bacon Cheesburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"gud food ya know\",\"price\":\"200\",\"order_amount\":\"0\"},{\"id\":\"4\",\"title\":\"Hamburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"bun, fun, run\",\"price\":\"180\",\"order_amount\":\"0\"}]},{\"day\":\"Thurday\",\"id\":3,\"items\":[{\"id\":\"4\",\"title\":\"Hamburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"bun, fun, run\",\"price\":\"180\",\"order_amount\":\"0\"},{\"id\":\"5\",\"title\":\"Cheeseburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"easy cheesy\",\"price\":\"150\",\"order_amount\":\"0\"}]},{\"day\":\"Friday\",\"id\":4,\"items\":[{\"id\":\"4\",\"title\":\"Hamburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"bun, fun, run\",\"price\":\"180\",\"order_amount\":\"0\"},{\"id\":\"5\",\"title\":\"Cheeseburger\",\"image\":\"https://cdn.vuetifyjs.com/images/cards/road.jpg\",\"description\":\"easy cheesy\",\"price\":\"150\",\"order_amount\":\"0\"}]}]');
+(1, '[{\"day\":\"Monday\",\"id\":0,\"items\":[{\"id\":\"7\",\"title\":\"Cranberry Bacon Chicken Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/web-salad-cranberry-bacon-bleu-18.jpg\",\"description\":\"Hand-seasoned, grilled chicken breast and pieces of bacon plus a generous helping of dried cranberries and savory bleu cheese crumbles on a bed of mixed greens with cucumber slices, and grape tomatoes.\",\"price\":\"200\",\"order_amount\":\"0\"},{\"id\":\"9\",\"title\":\"Side Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/side-salad.jpg\",\"description\":\"Mixed greens with cucumber, tomato, croutons and a sprinkling of cheddar cheese.\",\"price\":\"80\",\"order_amount\":\"0\"}]},{\"day\":\"Tuesday\",\"id\":1,\"items\":[{\"id\":\"8\",\"title\":\"Garden Fresco Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/salad-garden-fresco.jpg\",\"description\":\"Our Garden Fresco Salad features a bed of mixed greens plus hand-sliced cucumbers, grape tomatoes, shredded Wisconsin cheddar and zesty croutons.\",\"price\":\"150\",\"order_amount\":\"0\"},{\"id\":\"10\",\"title\":\"Chicken Cashew Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/web-salad-chicken-cashew-18.jpg\",\"description\":\"Hand-seasoned, grilled chicken breast plus a generous helping of whole roasted cashews atop a bed of mixed greens. Plus crunchy cucumbers, grape tomatoes and shredded real Wisconsin cheddar.\",\"price\":\"120\",\"order_amount\":\"0\"}]},{\"day\":\"Wednesday\",\"id\":2,\"items\":[{\"id\":\"9\",\"title\":\"Side Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/side-salad.jpg\",\"description\":\"Mixed greens with cucumber, tomato, croutons and a sprinkling of cheddar cheese.\",\"price\":\"80\",\"order_amount\":\"0\"},{\"id\":\"10\",\"title\":\"Chicken Cashew Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/web-salad-chicken-cashew-18.jpg\",\"description\":\"Hand-seasoned, grilled chicken breast plus a generous helping of whole roasted cashews atop a bed of mixed greens. Plus crunchy cucumbers, grape tomatoes and shredded real Wisconsin cheddar.\",\"price\":\"120\",\"order_amount\":\"0\"}]},{\"day\":\"Thurday\",\"id\":3,\"items\":[{\"id\":\"7\",\"title\":\"Cranberry Bacon Chicken Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/web-salad-cranberry-bacon-bleu-18.jpg\",\"description\":\"Hand-seasoned, grilled chicken breast and pieces of bacon plus a generous helping of dried cranberries and savory bleu cheese crumbles on a bed of mixed greens with cucumber slices, and grape tomatoes.\",\"price\":\"200\",\"order_amount\":\"0\"},{\"id\":\"8\",\"title\":\"Garden Fresco Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/salad-garden-fresco.jpg\",\"description\":\"Our Garden Fresco Salad features a bed of mixed greens plus hand-sliced cucumbers, grape tomatoes, shredded Wisconsin cheddar and zesty croutons.\",\"price\":\"150\",\"order_amount\":\"0\"}]},{\"day\":\"Friday\",\"id\":4,\"items\":[{\"id\":\"10\",\"title\":\"Chicken Cashew Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/web-salad-chicken-cashew-18.jpg\",\"description\":\"Hand-seasoned, grilled chicken breast plus a generous helping of whole roasted cashews atop a bed of mixed greens. Plus crunchy cucumbers, grape tomatoes and shredded real Wisconsin cheddar.\",\"price\":\"120\",\"order_amount\":\"0\"},{\"id\":\"9\",\"title\":\"Side Salad\",\"image\":\"https://d36wnpk9e3wo84.cloudfront.net/menu-item-images/400/side-salad.jpg\",\"description\":\"Mixed greens with cucumber, tomato, croutons and a sprinkling of cheddar cheese.\",\"price\":\"80\",\"order_amount\":\"0\"}]}]');
 
 -- --------------------------------------------------------
 
@@ -113,10 +112,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `name`, `admin`, `coins`) VALUES
-(1, 'michalmullen@gmail.com', 'asdfasdf', 'Mitchell', 1, 120),
-(7, 'asdf@asdf.com', 'asdfasdf', 'Asdf', 0, 0),
-(8, 'asdf@asdf.com1', 'asdfasdf', 'asdfadfasd', 0, 0),
-(9, 'asdf@asdf.com13', 'asdfasdf', 'matta', 0, 0);
+(1, 'admin@admin.com', 'asdfasdf', 'Admin', 1, 120),
+(7, 'asdf@asdf.com', 'asdfasdf', 'Asdf', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -156,7 +153,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `menu`
 --
