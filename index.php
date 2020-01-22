@@ -164,4 +164,10 @@ Flight::route('GET /order/day', function () {
 });
 
 
+//options
+Flight::route('OPTIONS /*/*', function () {
+    Flight::json('Anyway, return something for OPTIONS requests');
+});
+
+
 Flight::start();
